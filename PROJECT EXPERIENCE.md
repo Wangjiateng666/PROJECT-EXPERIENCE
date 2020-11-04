@@ -1,0 +1,46 @@
+# PROJECT EXPERIENCE
+
+**回调函数：**handler(newVal,oldVal){}:新值和旧值
+
+```javascript
+data() {
+    return {
+        apply:{
+            apply_start_lm: "",
+            apply_end_lm: ""
+        }
+    }
+}
+watch: {
+    "apply.apply_start_lm": { //监听data中apply下的apply_start_lm
+        handler(newVal, oldVal) {
+            this.apply.apply_start_lm = newVal
+        }
+    }
+}
+```
+
+**选项deep:**为了发现对象内部值的变化，可以在选项参数中指定deep:true。监听数组的变动时不需要这么做
+
+```javascript
+watch: {
+    "a": {
+        immedidate: true
+    }
+}
+// 立即以 'a' 的当前值触发回调
+```
+
+**选项immediate:**在选项参数指定immediate:true将立即以表达式的当前值触发回调。
+
+
+
+**注销watch：**组件是经常要被销毁的,比如我们跳一个路由,从一个页面跳到另外一个页面,那么原来的页面的 watch 其实就没用了,这时候我们应该注销掉原来页面的 watch 的,不然的话会导致内置溢出。写在组件中的watch随着组件的销毁而销毁，但如果是下面这种形式就需要手动注销
+
+```javascript
+const unWatch = app.$watch('text', (newVal, oldVal) => { 
+    console.log(`${newVVal} : ${oldVal}`); 
+}) 
+unWatch(); // 手动注销watch
+```
+
